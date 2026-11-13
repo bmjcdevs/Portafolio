@@ -1454,7 +1454,38 @@ nav {
 }
 
 /* --------------------------------------------------------------------------
-   15. Adaptabilidad Responsive
+   15. Bloqueo de scroll y Backdrop de Navegación Móvil
+   -------------------------------------------------------------------------- */
+body.menu-locked {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 98;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Accesibilidad y ergonomía táctil en smartphones */
+a, button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   16. Adaptabilidad Responsive de Alta Precisión (Tablets y Smartphones)
    -------------------------------------------------------------------------- */
 @media (max-width: 900px) {
   .hero-grid {
@@ -1469,22 +1500,37 @@ nav {
 }
 
 @media (max-width: 768px) {
-  section {
-    padding: 64px 0;
+  /* Cabecera y Navegación Móvil */
+  header#site-header {
+    height: 64px;
+  }
+
+  nav {
+    height: 64px;
+    gap: 12px;
+  }
+
+  .menu-toggle {
+    display: flex;
   }
 
   .nav-links {
     position: fixed;
-    top: 72px;
+    top: 64px;
     left: 0;
     right: 0;
-    background: var(--surface);
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: var(--surface-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     flex-direction: column;
     align-items: stretch;
-    padding: 20px 24px;
-    gap: 16px;
-    transform: translateY(-150%);
+    padding: 18px 20px 28px;
+    gap: 8px;
+    transform: translateY(-130%);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: var(--shadow-lg);
     z-index: 99;
@@ -1494,27 +1540,413 @@ nav {
     transform: translateY(0);
   }
 
-  .menu-toggle {
+  .nav-item {
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .nav-item::after {
+    display: none;
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+    background: var(--surface-alt);
+    border-color: var(--border);
+    color: var(--accent);
+  }
+
+  /* Espaciado general y tipografía en móviles */
+  .wrap {
+    padding: 0 20px;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  .section-head {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: clamp(26px, 6vw, 36px);
+  }
+
+  /* Hero en Móviles */
+  .hero-section {
+    padding: 48px 0 64px;
+  }
+
+  .hero-title {
+    font-size: clamp(30px, 8vw, 44px);
+    line-height: 1.14;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+
+  .hero-lead {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding-top: 18px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stat-item {
+    text-align: center;
+    background: var(--surface);
+    padding: 10px 6px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  .stat-number {
+    font-size: 16px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  /* Consola interactiva en pantallas pequeñas */
+  .terminal-card {
+    border-radius: 14px;
+  }
+
+  .terminal-header {
+    padding: 8px 12px;
+  }
+
+  .terminal-badge {
+    display: none;
+  }
+
+  .terminal-body {
+    padding: 16px 14px;
+    min-height: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 12px;
+  }
+
+  .code-line {
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre;
+  }
+
+  .terminal-output {
+    padding: 10px 12px;
+  }
+
+  .output-text {
+    font-size: 12px;
+  }
+
+  .terminal-footer {
+    padding: 6px 12px;
+    font-size: 10.5px;
+  }
+
+  /* Grids a columna única en móviles */
+  .services-grid,
+  .projects-grid,
+  .stack-grid,
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* Filtros de proyectos con scroll horizontal táctil nativo */
+  .project-filters {
     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding-bottom: 6px;
+    margin: 0 -20px 28px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .project-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 7px 15px;
+    font-size: 13.5px;
+  }
+
+  /* Tarjetas de Proyectos en Móvil */
+  .project-card {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  .project-title {
+    font-size: 22px;
+  }
+
+  .project-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .project-link {
+    justify-content: center;
+    width: 100%;
+    padding: 9px 14px;
+  }
+
+  .project-status-note {
+    text-align: center;
+    display: block;
+  }
+
+  /* Servicios en Móvil */
+  .service-card {
+    padding: 26px 20px;
+    border-radius: 16px;
+  }
+
+  .service-card h3 {
+    font-size: 20px;
+  }
+
+  /* Sobre Nosotros */
+  .about-banner {
+    padding: 32px 20px;
+    border-radius: 18px;
+  }
+
+  .about-content h2 {
+    font-size: 24px;
+  }
+
+  .about-pills {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .about-pill {
+    font-size: 13px;
+    padding: 8px 12px;
+    text-align: center;
+  }
+
+  /* Stack Tecnológico */
+  .stack-category-card {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  /* Pasos del Proceso */
+  .step-card {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  .step-number {
+    font-size: 24px;
+  }
+
+  /* Sección Contacto */
+  .contact-section {
+    padding: 70px 0;
   }
 
   .contact-card {
-    padding: 40px 20px;
+    padding: 40px 18px;
+    border-radius: 20px;
+  }
+
+  .contact-title {
+    font-size: clamp(26px, 7vw, 36px);
+  }
+
+  .contact-lead {
+    font-size: 15.5px;
+    margin-bottom: 28px;
   }
 
   .email-copy-wrapper {
     flex-direction: column;
-    padding: 12px;
     width: 100%;
+    padding: 12px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .email-address {
+    font-size: 14px;
+    text-align: center;
+    word-break: break-all;
   }
 
   .copy-email-btn {
     width: 100%;
+    min-height: 44px;
     justify-content: center;
   }
 
+  .contact-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .contact-actions .btn {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+  }
+
+  /* Footer */
   .footer-links-group {
-    gap: 32px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .footer-bottom-wrap {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  /* Toast en Pantallas Pequeñas */
+  .toast {
+    bottom: 20px;
+    left: 16px;
+    right: 16px;
+    max-width: none;
+    font-size: 13px;
+    padding: 10px 16px;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17. Optimización Extrema para Smartphones Compactos (<= 480px, ej. iPhone SE)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .wrap {
+    padding: 0 16px;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+
+  /* Header compacto */
+  .logo {
+    font-size: 19px;
+  }
+
+  .logo-mark {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .tg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .menu-toggle {
+    width: 36px;
+    height: 36px;
+    padding: 7px;
+  }
+
+  /* Hero compacto */
+  .hero-section {
+    padding: 36px 0 48px;
+  }
+
+  .status-badge {
+    font-size: 11px;
+    padding: 5px 10px;
+    margin-bottom: 16px;
+    gap: 7px;
+  }
+
+  .hero-title {
+    font-size: clamp(26px, 8vw, 34px);
+    letter-spacing: -0.6px;
+  }
+
+  .hero-lead {
+    font-size: 15px;
+  }
+
+  .hero-stats {
+    gap: 6px;
+  }
+
+  .stat-item {
+    padding: 8px 4px;
+  }
+
+  .stat-number {
+    font-size: 14.5px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  /* Tarjetas y paddings en pantallas muy estrechas */
+  .project-card,
+  .service-card,
+  .stack-category-card,
+  .step-card {
+    padding: 20px 15px;
+  }
+
+  .contact-card {
+    padding: 30px 14px;
+  }
+
+  .project-filters {
+    margin: 0 -16px 24px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

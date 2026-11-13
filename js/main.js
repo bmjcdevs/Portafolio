@@ -15,6 +15,7 @@
   const toggleBtn = document.getElementById('tg');
   const menuToggle = document.getElementById('menu-toggle');
   const navLinks = document.getElementById('nav-links');
+  const menuBackdrop = document.getElementById('menu-backdrop');
   const copyBtn = document.getElementById('copy-email-btn');
   const toast = document.getElementById('toast');
   const STORAGE_KEY = 'bmjc-theme';
@@ -68,22 +69,52 @@
   }
 
   /* ==========================================================================
-     2. Menú de Navegación Móvil
+     2. Menú de Navegación Móvil y Accesibilidad Táctil
      ========================================================================== */
+  function closeMobileMenu() {
+    if (navLinks) navLinks.classList.remove('open');
+    if (menuToggle) {
+      menuToggle.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+    if (menuBackdrop) menuBackdrop.classList.remove('open');
+    document.body.classList.remove('menu-locked');
+  }
+
+  function openMobileMenu() {
+    if (navLinks) navLinks.classList.add('open');
+    if (menuToggle) {
+      menuToggle.classList.add('open');
+      menuToggle.setAttribute('aria-expanded', 'true');
+    }
+    if (menuBackdrop) menuBackdrop.classList.add('open');
+    document.body.classList.add('menu-locked');
+  }
+
   if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', function () {
-      const isOpen = navLinks.classList.toggle('open');
-      menuToggle.classList.toggle('open', isOpen);
-      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      const isOpen = navLinks.classList.contains('open');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    if (menuBackdrop) {
+      menuBackdrop.addEventListener('click', closeMobileMenu);
+    }
+
+    // Cerrar menú con la tecla Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        closeMobileMenu();
+      }
     });
 
     // Cerrar menú al hacer clic en cualquier enlace
     navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navLinks.classList.remove('open');
-        menuToggle.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', closeMobileMenu);
     });
   }
 
