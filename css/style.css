@@ -244,24 +244,26 @@ nav {
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-display);
   font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.5px;
   color: var(--text);
+  transition: transform 0.2s ease;
 }
 
-.logo-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: var(--accent-light);
-  border: 1px solid var(--accent);
+.logo:hover {
+  transform: scale(1.02);
+}
+
+.logo-img {
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  font-size: 14px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .logo .dot {
@@ -1905,10 +1907,10 @@ a, button {
     font-size: 19px;
   }
 
-  .logo-mark {
-    width: 25px;
-    height: 25px;
-    font-size: 12px;
+  .logo-img {
+    width: 27px;
+    height: 27px;
+    border-radius: 7px;
   }
 
   .tg {
