@@ -38,4 +38,4 @@ npx serve .
 ```
 
 ---
-© 2026 BMJC Devs · Santiago, Chile
+© 2026 BMJC Devs
