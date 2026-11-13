@@ -1,0 +1,8 @@
+# Logs y archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Entornos y dependencias
+node_modules/
+.env
