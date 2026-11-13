@@ -6,7 +6,7 @@ Sitio web corporativo y de presentación de **BMJC Devs**, estudio especializado
 
 - **Diseño Editorial & Tech**: Tipografía moderna (*Plus Jakarta Sans*, *Playfair Display* y *JetBrains Mono*) con micro-interacciones de alto nivel.
 - **Modo Oscuro / Claro Persistente**: Tema Obsidian Tech y Pearl Editorial con detección de preferencia del sistema y guardado en `localStorage`.
-- **Consola Interactiva del Hero (Live Demo)**: Pestañas interactivas que simulan el pipeline de un agente con LangChain (`agent_pipeline.py`) y las métricas de estado del estudio (`studio_metrics.json`).
+- **Consola Interactiva del Hero (Live Demo)**: Pestañas interactivas que simulan el pipeline del agente TechHogar con LangChain y arquitectura RAG (`techhogar_agent.py`) y las métricas de estado del estudio (`studio_metrics.json`).
 - **Filtros de Portafolio Dinámicos**: Filtrado instantáneo por categorías (*Todos*, *IA & Agentes*, *En producción*, *Productos propios*).
 - **Copiado de Email en 1 Clic**: Botón interactivo con retroalimentación visual inmediata ("¡Copiado!") y notificación toast flotante accesible.
 - **Scroll Spy**: Seguimiento activo en el menú de navegación al desplazarse por las distintas secciones.

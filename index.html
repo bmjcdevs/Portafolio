@@ -136,28 +136,28 @@
                   <span class="dot-green"></span>
                 </div>
                 <div class="terminal-tabs">
-                  <button class="terminal-tab active" data-tab="ai">agent_pipeline.py</button>
+                  <button class="terminal-tab active" data-tab="ai">techhogar_agent.py</button>
                   <button class="terminal-tab" data-tab="stack">studio_metrics.json</button>
                 </div>
                 <span class="terminal-badge">LIVE DEMO</span>
               </div>
 
-              <!-- Vista Tab 1: Simulación de Agente IA -->
+              <!-- Vista Tab 1: Simulación de TechHogar Agent -->
               <div class="terminal-body active" id="tab-ai">
-                <div class="code-line"><span class="c-comment"># Agente IA con arquitectura RAG</span></div>
+                <div class="code-line"><span class="c-comment"># TechHogar Agent: RAG + LangChain</span></div>
                 <div class="code-line"><span class="c-keyword">from</span> langchain.agents <span class="c-keyword">import</span> create_agent</div>
                 <div class="code-line">agent = create_agent(</div>
-                <div class="code-line">  model=<span class="c-string">"gemini-flash"</span>,</div>
-                <div class="code-line">  tools=[calendar_tool, rag_tool],</div>
+                <div class="code-line">  model=<span class="c-string">"gemini-2.5-flash"</span>,</div>
+                <div class="code-line">  tools=[rag_retriever, catalog_tool],</div>
                 <div class="code-line">  memory=<span class="c-variable">ConversationBuffer</span>()</div>
                 <div class="code-line">)</div>
                 <div class="terminal-output">
                   <div class="output-header">
-                    <span class="output-tag">OUTPUT</span>
+                    <span class="output-tag">TECHHOGAR AGENT</span>
                     <span class="output-status">⚡ 120ms · 99.4% precisión</span>
                   </div>
                   <p class="output-text">
-                    <span class="prompt-arrow">❯</span> "Consulta procesada: <strong>Cita agendada</strong> en BarberFocus."
+                    <span class="prompt-arrow">❯</span> "Consulta resuelta con <strong>recuperación RAG</strong> sobre documentos técnicos internos."
                   </p>
                 </div>
               </div>
@@ -184,11 +184,8 @@
               </div>
 
               <div class="terminal-footer">
-                <span>● Python 3.11 / Node.js</span>
-                <span>LangChain / RAG Ready</span>
-              </div>
-            </div>
-          </div>
+                <span>● TechHogar RAG Pipeline</span>
+                <span>LangChain Agents</span>
               </div>
             </div>
           </div>
