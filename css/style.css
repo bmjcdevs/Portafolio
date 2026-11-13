@@ -457,31 +457,30 @@ nav {
 }
 
 .hero-title {
-  font-size: clamp(38px, 6vw, 64px);
-  line-height: 1.08;
+  font-size: clamp(40px, 8vw, 76px);
+  line-height: 1.05;
   letter-spacing: -1.5px;
-  margin-bottom: 20px;
+  margin: 12px 0 16px;
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, var(--accent), #e08b3c 60%, #c05621);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
+.hero-title span {
+  color: var(--accent);
 }
 
-:root[data-theme="dark"] .text-gradient {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24 60%, #f97316);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.hero-lead.highlight {
+  color: var(--text);
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.45;
 }
 
 .hero-lead {
-  font-size: 18px;
+  font-size: 16.5px;
   color: var(--text-muted);
   line-height: 1.6;
   max-width: 580px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .hero-lead strong {
@@ -494,7 +493,13 @@ nav {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 /* Botones universales */
@@ -1579,40 +1584,64 @@ a, button {
 
   /* Hero en Móviles */
   .hero-section {
-    padding: 48px 0 64px;
+    padding: 24px 0 36px;
   }
 
   .hero-title {
-    font-size: clamp(30px, 8vw, 44px);
-    line-height: 1.14;
+    font-size: clamp(36px, 10vw, 52px);
+    line-height: 1.05;
     letter-spacing: -1px;
-    margin-bottom: 16px;
+    margin: 10px 0 12px;
+  }
+
+  .hero-lead.highlight {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.45;
+    color: var(--text);
   }
 
   .hero-lead {
-    font-size: 16px;
-    line-height: 1.55;
-    margin-bottom: 24px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    margin-bottom: 20px;
   }
 
   .hero-cta {
+    display: flex;
     flex-direction: column;
     width: 100%;
     gap: 10px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
-  .hero-cta .btn {
+  .hero-cta > .btn-primary {
     width: 100%;
-    min-height: 48px;
+    min-height: 46px;
     font-size: 15px;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    flex: 1;
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 14px;
+    justify-content: center;
   }
 
   .hero-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding-top: 18px;
+    gap: 8px;
+    padding-top: 16px;
+    margin-bottom: 24px;
   }
 
   .stat-divider {
@@ -1622,22 +1651,26 @@ a, button {
   .stat-item {
     text-align: center;
     background: var(--surface);
-    padding: 10px 6px;
-    border-radius: 12px;
+    padding: 8px 4px;
+    border-radius: 10px;
     border: 1px solid var(--border);
   }
 
   .stat-number {
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 800;
   }
 
   .stat-label {
-    font-size: 11px;
+    font-size: 10.5px;
   }
 
   /* Consola interactiva en pantallas pequeñas */
   .terminal-card {
     border-radius: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: var(--shadow-md);
   }
 
   .terminal-header {
@@ -1649,30 +1682,31 @@ a, button {
   }
 
   .terminal-body {
-    padding: 16px 14px;
+    padding: 14px 12px;
     min-height: auto;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     font-size: 12px;
   }
 
   .code-line {
     font-size: 12px;
-    line-height: 1.7;
-    white-space: pre;
+    line-height: 1.55;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
   }
 
   .terminal-output {
     padding: 10px 12px;
+    margin-top: 10px;
   }
 
   .output-text {
     font-size: 12px;
+    line-height: 1.45;
   }
 
   .terminal-footer {
     padding: 6px 12px;
-    font-size: 10.5px;
+    font-size: 10px;
   }
 
   /* Grids a columna única en móviles */
@@ -1897,23 +1931,30 @@ a, button {
 
   /* Hero compacto */
   .hero-section {
-    padding: 36px 0 48px;
+    padding: 16px 0 28px;
   }
 
   .status-badge {
     font-size: 11px;
-    padding: 5px 10px;
-    margin-bottom: 16px;
-    gap: 7px;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+    gap: 6px;
   }
 
   .hero-title {
-    font-size: clamp(26px, 8vw, 34px);
-    letter-spacing: -0.6px;
+    font-size: clamp(34px, 10vw, 44px);
+    letter-spacing: -1px;
+    margin: 8px 0 10px;
+  }
+
+  .hero-lead.highlight {
+    font-size: 15px;
+    margin-bottom: 8px;
   }
 
   .hero-lead {
-    font-size: 15px;
+    font-size: 13.5px;
+    margin-bottom: 16px;
   }
 
   .hero-stats {
